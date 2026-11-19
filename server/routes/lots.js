@@ -8,13 +8,11 @@ const router = Router();
 
 const inIndia = (lat, lng) => lat >= 6 && lat <= 38 && lng >= 67 && lng <= 98;
 
-// Users see ALL lots. An admin sees only their own lots.
 router.get("/", protect, async (req, res) => {
   const filter = req.user.role === "admin" ? { owner: req.user._id } : {};
   res.json(await Lot.find(filter).sort("-createdAt"));
 });
 
-// Cities that have OWNSPACE lots (for the India map). Must be above "/:id"
 router.get("/coverage", protect, async (req, res) => {
   res.json(
     await Lot.aggregate([
@@ -86,7 +84,6 @@ router.post("/", protect, adminOnly, async (req, res) => {
   res.status(201).json(lot);
 });
 
-// Only the owner admin can edit or delete a lot
 router.put("/:id", protect, adminOnly, async (req, res) => {
   const lot = await Lot.findOne({ _id: req.params.id, owner: req.user._id });
   if (!lot) return res.status(404).json({ message: "Lot not found" });

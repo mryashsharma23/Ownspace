@@ -19,7 +19,6 @@ router.get("/", protect, async (req, res) => {
   res.json(pub(user));
 });
 
-// Partial update: send only the fields you want to change
 router.put("/", protect, async (req, res) => {
   const { name, email, phone, photo } = req.body;
   const user = await User.findById(req.user._id);

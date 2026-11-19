@@ -8,7 +8,6 @@ import { protect, adminOnly } from "../middleware/auth.js";
 const router = Router();
 router.use(protect, adminOnly);
 
-// Every admin route below works only on the logged-in admin's own lots
 const myLotIds = async (adminId) =>
   (await Lot.find({ owner: adminId }).select("_id")).map((l) => l._id);
 
@@ -59,7 +58,6 @@ router.get("/bookings", async (req, res) => {
   );
 });
 
-// Customers = people who booked in this admin's lots
 router.get("/users", async (req, res) => {
   const lotIds = await myLotIds(req.user._id);
   const ids = await Booking.distinct("user", { lot: { $in: lotIds } });

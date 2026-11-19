@@ -13,7 +13,13 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+
+// CLIENT_URL can hold one or more comma-separated website addresses
+const allowed = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((s) => s.trim());
+
+app.use(cors({ origin: allowed }));
 app.use(express.json({ limit: "1mb" })); // profile photos are sent as small base64 images
 
 app.get("/", (req, res) => res.send("OWNSPACE API running"));

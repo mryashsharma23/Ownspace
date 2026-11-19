@@ -4,7 +4,6 @@ import { useAuth } from "../AuthContext";
 import Avatar from "../components/Avatar";
 import IndiaMap from "../components/IndiaMap";
 
-// crop to a square and shrink to 256px so the photo stays small
 const resizeImage = (file, size = 256) =>
     new Promise((resolve, reject) => {
         const img = new Image();
@@ -122,7 +121,6 @@ export default function Profile() {
         }
     };
 
-    // referral message
     const cityNames = coverage?.map((c) => c.city).join(", ");
     const shareText = cityNames
         ? `I use OWNSPACE to book parking slots in advance. It's available in ${cityNames}. Try it: ${window.location.origin}`
@@ -192,7 +190,6 @@ export default function Profile() {
                         <button className="btn btn-primary">Save changes</button>
                     </form>
 
-                    {/* password */}
                     <form onSubmit={savePassword} className="panel p-5 space-y-4">
                         <h2 className="text-xl font-bold">Change password</h2>
                         <div>
@@ -216,7 +213,6 @@ export default function Profile() {
                 </div>
             </div>
 
-            {/* coverage map + referral */}
             <section className="panel p-5 mt-8">
                 <h2 className="text-2xl font-bold">Where OWNSPACE is available</h2>
                 <p className="text-slate-500 mt-1 mb-4">

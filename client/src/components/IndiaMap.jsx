@@ -3,7 +3,6 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { CITIES } from "../data/cities";
 
-// build popup content with textContent so typed city names can never inject HTML
 const popupNode = (title, subtitle) => {
     const div = document.createElement("div");
     const b = document.createElement("strong");

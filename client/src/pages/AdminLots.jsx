@@ -9,7 +9,6 @@ const empty = { name: "", location: "", city: "", totalSlots: "", pricePerHour: 
 const titleCase = (s) =>
     s.trim().toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
-// Find coordinates + state for a city: from our list first, else look it up once
 async function locate(cityInput) {
     const typed = cityInput.trim();
     const known = CITIES.find((c) => c.city.toLowerCase() === typed.toLowerCase());

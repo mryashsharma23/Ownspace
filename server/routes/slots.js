@@ -5,7 +5,6 @@ import { protect } from "../middleware/auth.js";
 
 const router = Router();
 
-// GET /api/slots/:lotId?start=ISO&end=ISO  -> slots with availability for that time window
 router.get("/:lotId", protect, async (req, res) => {
   const slots = await Slot.find({ lot: req.params.lotId }).sort("number");
   const { start, end } = req.query;

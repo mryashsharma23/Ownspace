@@ -13,7 +13,6 @@ export default function CityPicker({ initial, onPick }) {
 
     const q = text.trim().toLowerCase();
 
-    // search any city/town in India (free OpenStreetMap search)
     useEffect(() => {
         if (picked || q.length < 3) {
             setRemote([]);
@@ -54,8 +53,7 @@ export default function CityPicker({ initial, onPick }) {
             ctrl.abort();
         };
     }, [q, picked]);
-
-    // built-in cities show instantly, then the live results
+    
     const local = q ? CITIES.filter((c) => c.city.toLowerCase().includes(q)).slice(0, 5) : [];
     const seen = new Set();
     const options = [...local, ...remote].filter((p) => {

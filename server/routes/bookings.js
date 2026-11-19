@@ -6,7 +6,6 @@ import { protect } from "../middleware/auth.js";
 
 const router = Router();
 
-// Public: opened when a ticket's QR code is scanned
 router.get("/verify/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id))
     return res.status(404).json({ message: "Ticket not found" });
