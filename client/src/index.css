@@ -1,0 +1,302 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+    --color-asphalt: #23272b;
+    --color-asphalt-soft: #343a40;
+    --color-concrete: #eef0f1;
+    --color-sign: #1d5fd0;
+    --color-sign-dark: #174aa3;
+    --color-paint: #f5c518;
+    --color-go: #1f9d55;
+    --color-stop: #d64545;
+    --font-display: "Barlow Semi Condensed", system-ui, sans-serif;
+    --font-sans: "DM Sans", system-ui, sans-serif;
+}
+
+@layer base {
+    body {
+        background: var(--color-concrete);
+        color: var(--color-asphalt);
+        font-family: var(--font-sans);
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: var(--font-display);
+        letter-spacing: 0.01em;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-paint);
+        outline-offset: 2px;
+    }
+
+    button:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+@layer components {
+    .panel {
+        background: #fff;
+        border: 1px solid #dde2e6;
+        border-radius: 14px;
+    }
+
+    /* buttons */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.65rem 1.1rem;
+        border-radius: 10px;
+        border: 1.5px solid transparent;
+        font-weight: 700;
+        font-size: 0.95rem;
+        transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-sm {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .btn-primary {
+        background: var(--color-sign);
+        color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background: var(--color-sign-dark);
+    }
+
+    .btn-dark {
+        background: var(--color-asphalt);
+        color: #fff;
+    }
+
+    .btn-dark:hover:not(:disabled) {
+        background: var(--color-asphalt-soft);
+    }
+
+    .btn-ghost {
+        background: #fff;
+        border-color: #cdd3d8;
+        color: var(--color-asphalt);
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+        border-color: var(--color-asphalt);
+    }
+
+    /* form fields */
+    .field {
+        width: 100%;
+        background: #fff;
+        border: 1.5px solid #cdd3d8;
+        border-radius: 10px;
+        padding: 0.65rem 0.8rem;
+        transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .field:focus {
+        outline: none;
+        border-color: var(--color-sign);
+        box-shadow: 0 0 0 3px rgba(29, 95, 208, 0.18);
+    }
+
+    .label {
+        display: block;
+        margin-bottom: 0.3rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #4a5560;
+    }
+
+    /* messages */
+    .alert-error,
+    .alert-ok {
+        border-radius: 10px;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.9rem;
+    }
+
+    .alert-error {
+        background: #fbe3e3;
+        color: #8f2424;
+    }
+
+    .alert-ok {
+        background: #dff3e7;
+        color: #14703c;
+    }
+
+    /* status badges */
+    .badge {
+        display: inline-block;
+        padding: 0.15rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+
+    .badge-active {
+        background: #dff3e7;
+        color: #14703c;
+    }
+
+    .badge-completed {
+        background: #e6e9ec;
+        color: #4a5560;
+    }
+
+    .badge-cancelled {
+        background: #fbe3e3;
+        color: #a02c2c;
+    }
+
+    /* the parking lot */
+    .lot-floor {
+        position: relative;
+        background: var(--color-asphalt);
+        border-radius: 14px;
+        padding: 36px 18px 22px;
+    }
+
+    .lot-floor::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        top: 15px;
+        border-top: 3px dashed var(--color-paint);
+        opacity: 0.8;
+    }
+
+    .bays {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+        gap: 10px;
+    }
+
+    .bay {
+        position: relative;
+        height: 112px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 8px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        background: transparent;
+        border: 3px solid rgba(255, 255, 255, 0.75);
+        border-top: 0;
+        border-radius: 0 0 6px 6px;
+        transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .bay:hover:not(:disabled):not(.selected) {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .bay.selected {
+        border-color: var(--color-paint);
+        color: var(--color-paint);
+        background: rgba(245, 197, 24, 0.16);
+    }
+
+    .bay:disabled {
+        cursor: not-allowed;
+        border-color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    .car {
+        position: absolute;
+        top: 12px;
+        width: 40px;
+        height: 66px;
+        border-radius: 12px;
+        background: #9aa4b2;
+    }
+
+    .car::before,
+    .car::after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        right: 6px;
+        border-radius: 4px;
+        background: #3b434b;
+    }
+
+    .car::before {
+        top: 14px;
+        height: 16px;
+    }
+
+    .car::after {
+        bottom: 9px;
+        height: 10px;
+    }
+
+    .car-mine {
+        background: var(--color-paint);
+    }
+
+    /* booking ticket */
+    .ticket {
+        display: flex;
+        background: #fff;
+        border: 1px solid #dde2e6;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .ticket-stub {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 96px;
+        padding: 18px 20px;
+        background: var(--color-sign);
+        color: #fff;
+        border-right: 2px dashed rgba(255, 255, 255, 0.55);
+    }
+
+    .ticket-stub.muted {
+        background: #8a949e;
+    }
+
+    /* loading placeholder */
+    .skeleton {
+        border-radius: 14px;
+        background: linear-gradient(90deg, #e3e7ea 25%, #eef0f1 50%, #e3e7ea 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.2s infinite;
+    }
+}
+
+@keyframes shimmer {
+    to {
+        background-position: -200% 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton {
+        animation: none;
+    }
+}
